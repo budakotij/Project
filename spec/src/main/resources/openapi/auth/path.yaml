@@ -1,0 +1,65 @@
+/auth/register:
+  post:
+    summary: register a new user
+    description: Performs necessary checks and registers a new user.
+    tags: [auth, project]
+    operationId: RegisterUser
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './definitions.yaml#/RegisterUserRequest'
+    responses:
+      '201':
+        description: User created successfully
+        content:
+          application/json:
+            schema:
+              $ref: './definitions.yaml#/RegisterUserResponse'
+      '409':
+        description: Username or E-mail address already registered.
+      '500':
+        description: Internal server exception.
+
+/auth/login:
+  post:
+    summary: Logs-in user
+    description: Checks user credentials and provides access token
+    tags: [auth, project]
+    operationId: LoginUser
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './definitions.yaml#/LoginUserRequest'
+    responses:
+      '200':
+        description: User logged in successfully
+        content:
+          application/json:
+            schema:
+              $ref: './definitions.yaml#/LoginUserResponse'
+      '401':
+        description: Username or Password incorrect.
+      '500':
+        description: Internal server exception.
+
+/auth/refresh:
+  post:
+    summary: Refreshes access token.
+    description: Refreshes access token.
+    tags: [ auth, project ]
+    operationId: RefreshToken
+    security:
+      - BearerAuth: []
+    responses:
+      '200':
+        description: Successfully refreshed tokens.
+        content:
+          application/json:
+            schema:
+              $ref: './definitions.yaml#/RefreshTokenResponse'
+      '401':
+        description: Unauthorized. Current token is invalid or expired.

@@ -1,0 +1,94 @@
+UserType:
+  type: string
+  description: Type of user. ADMIN is not included in api spec.
+  example: ADMIN/USER/ORGANISER
+  enum:
+    - USER
+    - ORGANISER
+    - ORGANISER_STAFF
+
+RegisterUserRequest:
+  type: object
+  description: Request body for user registration.
+  required: [userName, name, password, userType]
+  properties:
+    userName:
+      type: string
+      description: unique username of user
+    name:
+      type: string
+      description: full name of user
+    email:
+      type: string
+      description: unique email of user
+    profileImage:
+      type: string
+      description: object storage url for user profile image.
+    userType:
+      $ref: '#/UserType'
+    password:
+      type: string
+      description: password of user
+
+RegisterUserResponse:
+  type: object
+  description: Response for successful user registration
+  required: [accessToken, tokenType, expiresAt]
+  properties:
+    accessToken:
+      type: string
+    tokenType:
+      type: string
+      example: Bearer
+    expiresAt:
+      type: string
+      format: date-time
+
+LoginUserRequest:
+  type: object
+  description: Request body for user login.
+  required: [userName, password]
+  properties:
+    userName:
+      type: string
+      description: Username of user.
+    password:
+      type: string
+      description: Password of user.
+
+LoginUserResponse:
+  type: object
+  description: Response of user login.
+  required: [accessToken, tokenType, expiresAt]
+  properties:
+    accessToken:
+      type: string
+    tokenType:
+      type: string
+      example: Bearer
+    expiresAt:
+      type: string
+      format: date-time
+
+  RefreshTokenRequest:
+    type: object
+    description: Request body for access token refresh
+    required: [userName]
+    properties:
+      userName:
+        type: string
+        description: unique username of user
+
+RefreshTokenResponse:
+  type: object
+  description: Response of refresh token.
+  required: [ accessToken, tokenType, expiresAt ]
+  properties:
+    accessToken:
+      type: string
+    tokenType:
+      type: string
+      example: Bearer
+    expiresAt:
+      type: string
+      format: date-time
