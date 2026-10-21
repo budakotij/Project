@@ -1,0 +1,3 @@
+SELECT <columns>
+FROM TRIPS
+WHERE ID = :id

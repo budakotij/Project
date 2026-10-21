@@ -1,0 +1,43 @@
+/trips:
+  post:
+    summary: create a trip.
+    description: create a trip.
+    tags: [trip, project]
+    operationId: CreateTrip
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './definitions.yaml#/CreateTripRequest'
+    responses:
+      '201':
+        description: Trip created successfully
+        content:
+          application/json:
+            schema:
+              $ref: './definitions.yaml#/TripModel'
+      '401':
+        description: Unauthorized. Operation not allowed.
+      '500':
+        description: Internal server exception.
+
+/trips/{id}:
+  get:
+    summary: get trip details with id.
+    description: get trip details with id.
+    tags: [ trip, project ]
+    operationId: GetTrip
+    parameters:
+      - $ref: '../shared/parameters.yaml#/idPathParam'
+    responses:
+      '200':
+        description: Trip details found
+        content:
+          application/json:
+            schema:
+              $ref: './definitions.yaml#/TripModel'
+      '401':
+        description: Unauthorized. Operation not allowed.
+      '500':
+        description: Internal server exception.

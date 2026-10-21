@@ -14,3 +14,9 @@ paths:
 
   /auth/refresh:
     $ref: './auth/path.yaml#/~1auth~1refresh'
+
+  /trips:
+    $ref: './trips/path.yaml#/~1trips'
+
+  /trips/{id}:
+    $ref: './trips/path.yaml#/~1trips~1%7Bid%7D'

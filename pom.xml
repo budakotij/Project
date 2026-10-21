@@ -1,114 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.1.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.company</groupId>
-	<artifactId>project</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name/>
-	<description/>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-    <modules>
-		<module>commons</module>
-		<module>dal</module>
-		<module>spec</module>
-        <module>api</module>
-    </modules>
-    <scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.1.1</version>
+    <relativePath/>
+    <!-- lookup parent from repository -->
+  </parent>
+  <groupId>com.company</groupId>
+  <artifactId>project</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name/>
+  <description/>
+  <url/>
+  <licenses>
+    <license/>
+  </licenses>
+  <developers>
+    <developer/>
+  </developers>
+  <modules>
+    <module>commons</module>
+    <module>dal</module>
+    <module>spec</module>
+    <module>api</module>
+  </modules>
+  <scm>
+    <connection/>
+    <developerConnection/>
+    <tag/>
+    <url/>
+  </scm>
 
+  <properties>
+    <java.version>25</java.version>
+    <lombok.version>1.18.48</lombok.version>
+    <maven.version>3.10.0</maven.version>
+  </properties>
 
-	<properties>
-		<java.version>25</java.version>
-		<lombok.version>1.18.48</lombok.version>
-		<maven.version>3.10.0</maven.version>
-	</properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc</artifactId>
+    </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc-test</artifactId>
+      <scope>test</scope>
+    </dependency>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc</artifactId>
-		</dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+    <!-- 1. Spring Boot Starter Data JPA (includes JdbcTemplate and connection pooling) -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${lombok.version}</version>
-		</dependency>
+    <!-- 2. PostgreSQL Driver (allows Spring Boot to talk to Supabase) -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
 
-		<!-- 1. Spring Boot Starter Data JPA (includes JdbcTemplate and connection pooling) -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.version}</version>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <!-- Use the latest stable version available -->
+        <version>3.10.3</version>
+        <configuration>
+          <!-- Define formatting rules for Java files -->
+          <java>
+            <!-- Clean up wildcards and unused imports -->
+            <removeUnusedImports/>
+            <importOrder/>
 
-		<!-- 2. PostgreSQL Driver (allows Spring Boot to talk to Supabase) -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-	</dependencies>
+            <!-- Apply Google Java Format -->
+            <googleJavaFormat>
+              <!-- Optional: AOSP style uses 4 spaces instead of 2 -->
+              <version>1.36.1</version>
+              <style>GOOGLE</style>
+            </googleJavaFormat>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.version}</version>
-				<configuration>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-							<version>${lombok.version}</version>
-						</path>
-					</annotationProcessorPaths>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.diffplug.spotless</groupId>
-				<artifactId>spotless-maven-plugin</artifactId>
-				<version>2.43.0</version> <!-- Use the latest version -->
-				<configuration>
-					<java>
-						<!-- Choose a formatter, e.g., Google Java Format -->
-						<googleJavaFormat>
-							<version>1.22.0</version>
-							<style>AOSP</style>
-						</googleJavaFormat>
-					</java>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+            <!-- Optional: Fix common formatting bugs like trailing whitespace -->
+            <trimTrailingWhitespace/>
+            <endWithNewline/>
+          </java>
+          <!-- Optional: Format your pom.xml file too! -->
+          <pom>
+            <includes>
+              <include>pom.xml</include>
+            </includes>
+            <sortPom/>
+          </pom>
+        </configuration>
+        <executions>
+          <execution>
+            <!-- Validates formatting automatically during build -->
+            <goals>
+              <goal>apply</goal>
+            </goals>
+            <phase>compile</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

@@ -1,0 +1,7 @@
+idPathParam:
+  name: id
+  in: path
+  description: unique identifier for an entity.
+  required: true
+  schema:
+    type: string

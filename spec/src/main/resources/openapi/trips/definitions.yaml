@@ -1,0 +1,155 @@
+TripTags:
+  type: string
+  description: tags defining the trip.
+  enum:
+    - RELIGIOUS
+    - FEMALE_ONLY
+    - MALE_ONLY
+    - FAMILY
+    - MOUNTAINS
+    - BEACHES
+
+TripStatus:
+  type: string
+  description: status of trip.
+  enum:
+    - NEW
+    - STARTED
+    - COMPLETED
+    - CANCELLED
+
+Itinerary:
+  type: object
+  description: An item in itinerary.
+  required: [title, timestamp]
+  properties:
+    title:
+      type: string
+      description: title for itinerary.
+    description:
+      type: string
+      description: description for itinerary.
+    timestamp:
+      type: string
+      format: date-time
+      description: time at which the event occurs.
+    image:
+      type: string
+      description: image for the event.
+
+CreateTripRequest:
+  type: object
+  description: request body for creating trip
+  required: [organiser, tripTags, pickupOn, pickupAt, pickupLocation, dropOn, dropAt, dropLocation, description, destination, destinationLocation, itinerary, maximumOccupancy]
+  properties:
+    organiser:
+      type: string
+      description: Organiser of trip.
+    tripTags:
+      type: array
+      items:
+        $ref: '#/TripTags'
+    pickupOn:
+      type: string
+      format: date-time
+      description: Exact time of trip start.
+    pickupAt:
+      type: string
+      description: Address for trip start location.
+    pickupLocation:
+      $ref: '../shared/definitions.yaml#/Location'
+      description: Exact pickup location.
+    dropOn:
+      type: string
+      format: date-time
+      description: Exact time of trip completion.
+    dropAt:
+      type: string
+      description: Address for trip end location.
+    dropLocation:
+      $ref: '../shared/definitions.yaml#/Location'
+      description: Exact drop location.
+    description:
+      type: string
+      description: description of trip.
+    destination:
+      type: string
+      description: destination location.
+    destinationLocation:
+      $ref: '../shared/definitions.yaml#/Location'
+    itinerary:
+      type: array
+      items:
+        $ref: '#/Itinerary'
+    images:
+      type: array
+      items:
+        type: string
+    maximumOccupancy:
+      type: integer
+      description: Maximum number of slots available.
+
+TripModel:
+  title: TripModel
+  type: object
+  description: Trip details
+  required: [id, organiser, tripTags, pickupOn, pickupAt, pickupLocation, dropOn, dropAt, dropLocation, description, destination, destinationLocation, itinerary]
+  properties:
+    id:
+      type: string
+      description: unique identifier for trip
+    postedOn:
+      type: string
+      format: date-time
+      description: Time when trip was created
+    tripStatus:
+      $ref: '#/TripStatus'
+    organiser:
+      type: string
+      description: Organiser of trip.
+    tripTags:
+      type: array
+      items:
+        $ref: '#/TripTags'
+    pickupOn:
+      type: string
+      format: date-time
+      description: Exact time of trip start.
+    pickupAt:
+      type: string
+      description: Address for trip start location.
+    pickupLocation:
+      $ref: '../shared/definitions.yaml#/Location'
+      description: Exact pickup location.
+    dropOn:
+      type: string
+      format: date-time
+      description: Exact time of trip completion.
+    dropAt:
+      type: string
+      description: Address for trip end location.
+    dropLocation:
+      $ref: '../shared/definitions.yaml#/Location'
+      description: Exact drop location.
+    description:
+      type: string
+      description: description of trip.
+    destination:
+      type: string
+      description: destination location.
+    destinationLocation:
+      $ref: '../shared/definitions.yaml#/Location'
+    itinerary:
+      type: array
+      items:
+        $ref: '#/Itinerary'
+    images:
+      type: array
+      items:
+        type: string
+    maximumOccupancy:
+      type: integer
+      description: Maximum number of slots available.
+    availableOccupancy:
+      type: integer
+      description: Number of slots left.

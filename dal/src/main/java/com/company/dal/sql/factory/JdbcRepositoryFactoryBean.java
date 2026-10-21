@@ -7,34 +7,31 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 @Data
 public class JdbcRepositoryFactoryBean<T> implements FactoryBean<T> {
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
+  private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private Class<T> repositoryInterface;
-    private T repository;
+  private Class<T> repositoryInterface;
+  private T repository;
 
-    public JdbcRepositoryFactoryBean(NamedParameterJdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+  public JdbcRepositoryFactoryBean(NamedParameterJdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+  }
+
+  @Override
+  public T getObject() {
+    if (repository == null) {
+      repository = SqlInterfaceFactory.createRepository(repositoryInterface, jdbcTemplate);
     }
 
-    @Override
-    public T getObject() {
-        if (repository == null) {
-            repository = SqlInterfaceFactory.createRepository(
-                    repositoryInterface,
-                    jdbcTemplate
-            );
-        }
+    return repository;
+  }
 
-        return repository;
-    }
+  @Override
+  public Class<?> getObjectType() {
+    return repositoryInterface;
+  }
 
-    @Override
-    public Class<?> getObjectType() {
-        return repositoryInterface;
-    }
-
-    @Override
-    public boolean isSingleton() {
-        return true;
-    }
+  @Override
+  public boolean isSingleton() {
+    return true;
+  }
 }

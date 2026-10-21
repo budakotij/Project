@@ -1,0 +1,13 @@
+Location:
+  type: object
+  description: coordinates of location.
+  required: [latitude, longitude]
+  properties:
+    latitude:
+      type: number
+      format: double
+      description: latitude of location
+    longitude:
+      type: number
+      format: double
+      description: longitude of location

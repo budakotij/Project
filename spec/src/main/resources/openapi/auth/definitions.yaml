@@ -7,6 +7,15 @@ UserType:
     - ORGANISER
     - ORGANISER_STAFF
 
+Gender:
+  type: string
+  description: Gender of user.
+  enum:
+    - MALE
+    - FEMALE
+    - OTHERS
+    - NOT_SPECIFIED
+
 RegisterUserRequest:
   type: object
   description: Request body for user registration.
@@ -21,6 +30,14 @@ RegisterUserRequest:
     email:
       type: string
       description: unique email of user
+    phoneNumber:
+      type : string
+      description: phone number of user.
+    dateOfBirth:
+      type: string
+      format: date
+    gender:
+      $ref: '#/Gender'
     profileImage:
       type: string
       description: object storage url for user profile image.
